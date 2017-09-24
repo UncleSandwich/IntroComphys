@@ -19,11 +19,11 @@ public:
 };
 
 void task1(int, int);
-void square_test(RN_Congru, int, int);
-void cube_test(RN_Congru, int, int);
-void diff_cp(int, int);
-//void compare_rand_drand48(int, int);
-
+	void square_test(RN_Congru, int, int);
+	void cube_test(RN_Congru, int, int);
+	void diff_cp(int, int);
+	//void compare_rand_drand48(int, int);
+void task2(int, int);
 
 
 
@@ -149,4 +149,8 @@ void diff_cp(int i, int seed) {
 	square_test(rnseq2, i, seed);
 	cube_test(rnseq2, i, seed);
 	
+}
+
+void task2(int i, int seed) {
+
 }
