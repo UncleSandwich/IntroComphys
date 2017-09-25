@@ -45,7 +45,10 @@ int main(){
 	stringstream(str) >> seed;
 
 	//task1
-	task1(i, seed);
+	//task1(i, seed);
+
+	//task2
+	task2(i, seed);
 	
 
 	system("pause");
@@ -154,7 +157,7 @@ void diff_cp(int i, int seed) {
 }
 
 void task2(int i, int seed) {
-	int a = 16807, b = 2147483647;
+	int a = 3, b = 31;
 	RN_Congru rn_for_phi{ a,b }, rn_for_radius{ a,b };
 	rn_for_phi.seq = new int[i];
 	rn_for_radius.seq = new int[i];
@@ -170,8 +173,53 @@ void task2(int i, int seed) {
 	phi = new double[i];
 	radius = new double[i];
 	for (int j = 0; j < i; j++) {
-		phi[j] = rn_for_phi.seq[j] * 2 * M_PI;
-		radius[j] = sqrt(2 * rn_for_radius.seq[j]);
+		phi[j] = rn_for_phi.seq[j] / double(rn_for_phi.p) * 2 * M_PI;
+		radius[j] = sqrt(rn_for_radius.seq[j] / double(rn_for_radius.p) / M_PI);
 	}
 
+	string filename = "rnseq of phi(c=" + to_string(rn_for_phi.c) + ",p=" + to_string(rn_for_phi.p) \
+		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(seed) + ".dat";
+	fstream myfile(filename, ios::out | ios::trunc);
+
+	if (myfile.is_open()) {
+		cout << "Generate random number sequence of phi:(c=" \
+			+ to_string(rn_for_phi.c) + ", p=" + to_string(rn_for_phi.p) + ")\n";
+		for (int j = 0; j < i ; j++) {
+			myfile << phi[j] << "\n";
+		}
+		if (myfile.good()) {
+			cout << "File is successfully written.\n";
+		}
+		else {
+			cout << "Writting is fail.\n";
+			myfile.clear();
+		}
+	}
+	else {
+		cout << "File is unable to open.\n";
+	}
+	myfile.close();
+
+	filename = "rnseq of radius(c=" + to_string(rn_for_radius.c) + ",p=" + to_string(rn_for_radius.p) \
+		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(seed) + ".dat";
+	myfile.open(filename, ios::out | ios::trunc);
+
+	if (myfile.is_open()) {
+		cout << "Generate random number sequence of radius:(c=" \
+			+ to_string(rn_for_radius.c) + ", p=" + to_string(rn_for_radius.p) + ")\n";
+		for (int j = 0; j < i; j++) {
+			myfile << radius[j] << "\n";
+		}
+		if (myfile.good()) {
+			cout << "File is successfully written.\n";
+		}
+		else {
+			cout << "Writting is fail.\n";
+			myfile.clear();
+		}
+	}
+	else {
+		cout << "File is unable to open.\n";
+	}
+	myfile.close();
 }
