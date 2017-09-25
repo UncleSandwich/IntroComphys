@@ -2,6 +2,8 @@
 #include<string>
 #include<sstream>
 #include<fstream>
+#define _USE_MATH_DEFINES // for C++  
+#include "math.h" 
 
 using namespace std;
 
@@ -152,5 +154,24 @@ void diff_cp(int i, int seed) {
 }
 
 void task2(int i, int seed) {
+	int a = 16807, b = 2147483647;
+	RN_Congru rn_for_phi{ a,b }, rn_for_radius{ a,b };
+	rn_for_phi.seq = new int[i];
+	rn_for_radius.seq = new int[i];
+	rn_for_phi.seq[0] = seed;
+	rn_for_radius.seq[0] = (seed + rand()) % b;
+
+	for (int j = 1; j < i; j++) {
+		rn_for_phi.seq[j] = rn_for_phi.Congru(&rn_for_phi.seq[j]);
+		rn_for_radius.seq[j] = rn_for_radius.Congru(&rn_for_radius.seq[j]);
+	}
+
+	double * phi, *radius;
+	phi = new double[i];
+	radius = new double[i];
+	for (int j = 0; j < i; j++) {
+		phi[j] = rn_for_phi.seq[j] * 2 * M_PI;
+		radius[j] = sqrt(2 * rn_for_radius.seq[j]);
+	}
 
 }
