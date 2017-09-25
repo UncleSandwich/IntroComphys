@@ -2,14 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Ex0",
-    "\\Ex0\\Ex0\\Debug",
-    "\\Ex0\\Ex0\\Ex0",
     "\\Ex1",
     "\\Ex1\\Ex1",
     "\\Ex1\\Ex1\\Debug",
-    "\\Ex1\\Ex1\\Ex1",
-    "\\Ex1\\Ex1\\Ex1\\Debug\\Ex1.tlog"
+    "\\Ex1\\Ex1\\Ex1"
   ],
-  "SelectedNode": "\\Ex1\\Ex1\\Debug\\CongruRN_cube_test(c=3,p=31,number of numbers=50 seed=2.dat",
+  "SelectedNode": "\\Ex1\\Ex1\\Debug\\rnseq of radius(c=3,p=31,number of numbers=50 seed=2.dat",
   "PreviewInSolutionExplorer": false
 }

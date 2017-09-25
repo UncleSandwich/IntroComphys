@@ -21,12 +21,12 @@ public:
 };
 
 void task1(int, int);
-	void square_test(RN_Congru, int, int);
-	void cube_test(RN_Congru, int, int);
-	void diff_cp(int, int);
-	//void compare_rand_drand48(int, int);
+void square_test(RN_Congru, int, int);
+void cube_test(RN_Congru, int, int);
+RN_Congru diff_cp(int, int, int, int);
+//void compare_rand_drand48(int, int);
 void task2(int, int);
-
+void task3(int, int);
 
 
 
@@ -48,7 +48,10 @@ int main(){
 	//task1(i, seed);
 
 	//task2
-	task2(i, seed);
+	//task2(i, seed);
+
+	//task3
+	task3(i, seed);
 	
 
 	system("pause");
@@ -75,7 +78,15 @@ void task1(int i, int seed) {
 	getline(cin, str);
 	if (str == "y") {
 		cout << "Please choose anoter c and p:\n";
-		diff_cp(i, seed);
+		int c, p;
+		string str1, str2;
+		cout << "c=";
+		getline(cin, str1);
+		stringstream(str1) >> c;
+		cout << "p=";
+		getline(cin, str2);
+		stringstream(str2) >> p;
+		RN_Congru rnseq2 = diff_cp(i, seed, c, p);
 	}
 
 	//compare built-in rand() and drand48()
@@ -134,25 +145,25 @@ void cube_test(RN_Congru rnseq, int i, int seed) {
 	myfile.close();
 }
 
-void diff_cp(int i, int seed) {
-	int a, b;
-	string str1, str2;
-	cout << "c=";
-	getline(cin, str1);
-	stringstream(str1) >> a;
-	cout << "p=";
-	getline(cin, str2);
-	stringstream(str2) >> b;
+RN_Congru diff_cp(int i, int seed, int c, int p) {
+	
 
-	RN_Congru rnseq2{ a,b };
+	RN_Congru rnseq2{ c,p };
 	rnseq2.seq = new int[i];
 	rnseq2.seq[0] = seed;
 	for (int j = 1; j < i; j++) {
 		rnseq2.seq[j] = rnseq2.Congru(&rnseq2.seq[j]);
 	}
 
-	square_test(rnseq2, i, seed);
-	cube_test(rnseq2, i, seed);
+	cout << "Do you want to run 2d, 3d test? (y/n):";
+	string str;
+	getline(cin, str);
+	if (str == "y") {
+		square_test(rnseq2, i, seed);
+		cube_test(rnseq2, i, seed);
+	}
+
+	return rnseq2;
 	
 }
 
@@ -222,4 +233,51 @@ void task2(int i, int seed) {
 		cout << "File is unable to open.\n";
 	}
 	myfile.close();
+}
+
+void task3(int i, int seed) {
+	cout << "Please specify c and p:\n";
+	int c, p;
+	string str1, str2;
+	cout << "c=";
+	getline(cin, str1);
+	stringstream(str1) >> c;
+	cout << "p=";
+	getline(cin, str2);
+	stringstream(str2) >> p;
+
+	RN_Congru rnseq_for_chi_test = diff_cp(i, seed, c, p);
+
+	cout << "Please specify the number of intervals k:\n";
+	int k;
+	string str3;
+	cout << "k=";
+	getline(cin, str3);
+	stringstream(str3) >> k;
+
+	if ((i / double(k)) < 5)                                              //Check that n*pi>=5
+		throw std::invalid_argument("n*pi must be greater than 5!");
+
+	double range_of_inteval = p / double(k);
+	int* N = new int[k];
+	for (int m = 0; m < k; m++) N[m] = 0;
+	for (int j = 0; j < i; j++) {
+		for (int m = 0; m < k; m++) {
+			if (m*range_of_inteval <= rnseq_for_chi_test.seq[j] && rnseq_for_chi_test.seq[j] < (m + 1)*range_of_inteval) {
+				N[m]++;
+				break;
+			}
+		}
+	}
+
+	double chi_square = 0;
+	for (int m = 0; m < k; m++) {
+		chi_square += pow(N[m] - i / double(k), 2) / (i / double(k));
+	}
+
+	for (int m = 0; m < k; m++) {
+		cout << "N[" << m << "] = " << N[m] << "\n";
+	}
+	
+
 }
