@@ -19,9 +19,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\OneDrive\ETH\Study\Lectures\Intro to Computational Physics\CompPhys1\ex01_boutsis_kyriakos\ex01_boutsis_kyriakos\GnuPlot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
 </Project>

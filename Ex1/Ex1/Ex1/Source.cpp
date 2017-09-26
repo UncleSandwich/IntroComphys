@@ -278,6 +278,13 @@ void task3(int i, int seed) {
 	for (int m = 0; m < k; m++) {
 		cout << "N[" << m << "] = " << N[m] << "\n";
 	}
+	cout << "chi_square=" << chi_square << "\n";
+
+	string filename = "Chi_square (c=" + to_string(rnseq_for_chi_test.c) + ", p=" + to_string(rnseq_for_chi_test.p) \
+		+ ", k=" + to_string(k) + ", n=" + to_string(i) + ")";
+	fstream myfile(filename, ios::out | ios::trunc);
+	myfile << "n=" << i << "      " << "Chi_square=" << chi_square << "\n";
+	myfile.close();
 	
 
 }
