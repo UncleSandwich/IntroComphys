@@ -9,21 +9,21 @@ using namespace std;
 
 class RN_Congru {
 public:	
-	int c, p;
-	RN_Congru(int a, int b) :c(a), p(b) {};
+	long long c, p;
+	RN_Congru(long long a, long long b) :c(a), p(b) {};
 	RN_Congru() {
 		c = 3;
 		p = 31;
 	};
-	int * seq;
-	int Congru(int* arrayPointer) {return (c*(*(arrayPointer - 1))) % p;}
+	long long * seq;
+	long long Congru(long long* arrayPointer) {return (c*(*(arrayPointer - 1))) % p;}
 
 };
 
 void task1(int, int);
 void square_test(RN_Congru, int, int);
 void cube_test(RN_Congru, int, int);
-RN_Congru diff_cp(int, int, int, int);
+RN_Congru diff_cp(int, int, long long, long long);
 //void compare_rand_drand48(int, int);
 void task2(int, int);
 void task3(int, int);
@@ -35,9 +35,9 @@ int main(){
 	cout << "This is Congruential RNG.\n";
 	string str;
 	cout << "Please enter the number of random numbers you want to generate:";
-	int i;                           //number of random number
-	getline(cin, str);
-	stringstream(str) >> i;
+	int i=10000;                           //number of random number
+	/*getline(cin, str);
+	stringstream(str) >> i;*/
 
 	cout << "Please enter the seed:";
 	int seed;                       //initial value of random number
@@ -48,10 +48,10 @@ int main(){
 	//task1(i, seed);
 
 	//task2
-	//task2(i, seed);
+	task2(i, seed);
 
 	//task3
-	task3(i, seed);
+	//task3(i, seed);
 	
 
 	system("pause");
@@ -60,7 +60,7 @@ int main(){
 
 void task1(int i, int seed) {
 	RN_Congru rnseq;
-	rnseq.seq = new int[i];
+	rnseq.seq = new long long[i];
 	rnseq.seq[0] = seed;
 	for (int j = 1; j < i; j++) {
 		rnseq.seq[j] = rnseq.Congru(&rnseq.seq[j]);
@@ -145,19 +145,19 @@ void cube_test(RN_Congru rnseq, int i, int seed) {
 	myfile.close();
 }
 
-RN_Congru diff_cp(int i, int seed, int c, int p) {
+RN_Congru diff_cp(int i, int seed, long long c, long long p) {
 	
 
 	RN_Congru rnseq2{ c,p };
-	rnseq2.seq = new int[i];
+	rnseq2.seq = new long long[i];
 	rnseq2.seq[0] = seed;
 	for (int j = 1; j < i; j++) {
 		rnseq2.seq[j] = rnseq2.Congru(&rnseq2.seq[j]);
 	}
 
-	cout << "Do you want to run 2d, 3d test? (y/n):";
-	string str;
-	getline(cin, str);
+	cout << "Do you want to run 2d, 3d test? (y/n): ";
+	string str = "n";
+	//getline(cin, str);
 	if (str == "y") {
 		square_test(rnseq2, i, seed);
 		cube_test(rnseq2, i, seed);
@@ -170,8 +170,8 @@ RN_Congru diff_cp(int i, int seed, int c, int p) {
 void task2(int i, int seed) {
 	int a = 3, b = 31;
 	RN_Congru rn_for_phi{ a,b }, rn_for_radius{ a,b };
-	rn_for_phi.seq = new int[i];
-	rn_for_radius.seq = new int[i];
+	rn_for_phi.seq = new long long[i];
+	rn_for_radius.seq = new long long[i];
 	rn_for_phi.seq[0] = seed;
 	rn_for_radius.seq[0] = (seed + rand()) % b;
 
@@ -233,38 +233,49 @@ void task2(int i, int seed) {
 		cout << "File is unable to open.\n";
 	}
 	myfile.close();
+
+	//change phi and radius into x,y coordinate and output
+
 }
 
 void task3(int i, int seed) {
 	cout << "Please specify c and p:\n";
-	int c, p;
-	string str1, str2;
-	cout << "c=";
-	getline(cin, str1);
-	stringstream(str1) >> c;
-	cout << "p=";
-	getline(cin, str2);
-	stringstream(str2) >> p;
+	long long c=65539, p=2147483647;
+	//string str1, str2;
+	//cout << "c=";
+	//getline(cin, str1);
+	//stringstream(str1) >> c;
+	//cout << "p=";
+	//getline(cin, str2);
+	//stringstream(str2) >> p;
+
+	cout << "c=" << c << "  " << "p=" << p << "\n";
 
 	RN_Congru rnseq_for_chi_test = diff_cp(i, seed, c, p);
 
 	cout << "Please specify the number of intervals k:\n";
-	int k;
-	string str3;
+	int k=21;
+	/*string str3;
 	cout << "k=";
 	getline(cin, str3);
-	stringstream(str3) >> k;
+	stringstream(str3) >> k;*/
 
 	if ((i / double(k)) < 5)                                              //Check that n*pi>=5
 		throw std::invalid_argument("n*pi must be greater than 5!");
 
 	double range_of_inteval = p / double(k);
+	cout << "range of interval:  " << range_of_inteval << "\n";
 	int* N = new int[k];
 	for (int m = 0; m < k; m++) N[m] = 0;
+
 	for (int j = 0; j < i; j++) {
+		//cout << "rnseq_for_chi_test.seq[" << j << "]:  " << rnseq_for_chi_test.seq[j] << "\n";
 		for (int m = 0; m < k; m++) {
 			if (m*range_of_inteval <= rnseq_for_chi_test.seq[j] && rnseq_for_chi_test.seq[j] < (m + 1)*range_of_inteval) {
 				N[m]++;
+				/*cout << "rnseq_for_chi_test.seq[" << j << "]:  " << rnseq_for_chi_test.seq[j] << "   ";
+				cout << "begin: " << m*range_of_inteval << "  end: " << (m + 1)*range_of_inteval<<"    ";
+				cout << "m=" << m << "   j=" << j << "\n";*/
 				break;
 			}
 		}
@@ -272,9 +283,10 @@ void task3(int i, int seed) {
 
 	double chi_square = 0;
 	for (int m = 0; m < k; m++) {
-		chi_square += pow(N[m] - i / double(k), 2) / (i / double(k));
+		chi_square += ((N[m] - i / double(k))*(N[m] - i / double(k))) / (i / double(k));
 	}
 
+	cout << "Expected number of N[m]:" << (i / double(k)) << "\n";
 	for (int m = 0; m < k; m++) {
 		cout << "N[" << m << "] = " << N[m] << "\n";
 	}
@@ -282,8 +294,8 @@ void task3(int i, int seed) {
 
 	string filename = "Chi_square (c=" + to_string(rnseq_for_chi_test.c) + ", p=" + to_string(rnseq_for_chi_test.p) \
 		+ ", k=" + to_string(k) + ", n=" + to_string(i) + ")";
-	fstream myfile(filename, ios::out | ios::trunc);
-	myfile << "n=" << i << "      " << "Chi_square=" << chi_square << "\n";
+	fstream myfile(filename, ios::out | ios::app);
+	myfile << "seed=" << seed << "      " << "Chi_square=" << chi_square << "\n";
 	myfile.close();
 	
 
