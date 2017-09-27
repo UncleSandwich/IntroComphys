@@ -34,7 +34,7 @@ int main(){
 
 	cout << "This is Congruential RNG.\n";
 	string str;
-	cout << "Please enter the number of random numbers you want to generate:";
+	cout << "Please enter the number of random numbers you want to generate:\n";
 	int i=10000;                           //number of random number
 	/*getline(cin, str);
 	stringstream(str) >> i;*/
@@ -45,13 +45,13 @@ int main(){
 	stringstream(str) >> seed;
 
 	//task1
-	//task1(i, seed);
+	task1(i, seed);
 
 	//task2
 	task2(i, seed);
 
 	//task3
-	//task3(i, seed);
+	task3(i, seed);
 	
 
 	system("pause");
@@ -168,29 +168,59 @@ RN_Congru diff_cp(int i, int seed, long long c, long long p) {
 }
 
 void task2(int i, int seed) {
-	int a = 3, b = 31;
-	RN_Congru rn_for_phi{ a,b }, rn_for_radius{ a,b };
+	long long c = 16807, p = 2147483647;
+	RN_Congru rn_for_phi{ c,p }, rn_for_radius{ c,p };
 	rn_for_phi.seq = new long long[i];
 	rn_for_radius.seq = new long long[i];
 	rn_for_phi.seq[0] = seed;
-	rn_for_radius.seq[0] = (seed + rand()) % b;
+	rn_for_radius.seq[0] = (seed + rand()) % p;
 
 	for (int j = 1; j < i; j++) {
 		rn_for_phi.seq[j] = rn_for_phi.Congru(&rn_for_phi.seq[j]);
 		rn_for_radius.seq[j] = rn_for_radius.Congru(&rn_for_radius.seq[j]);
 	}
 
-	double * phi, *radius;
+	double * phi, *radius, *x, *y;
 	phi = new double[i];
 	radius = new double[i];
+	x = new double[i];
+	y = new double[i];
 	for (int j = 0; j < i; j++) {
 		phi[j] = rn_for_phi.seq[j] / double(rn_for_phi.p) * 2 * M_PI;
 		radius[j] = sqrt(rn_for_radius.seq[j] / double(rn_for_radius.p) / M_PI);
 	}
 
-	string filename = "rnseq of phi(c=" + to_string(rn_for_phi.c) + ",p=" + to_string(rn_for_phi.p) \
+	for (int j = 0; j < i; j++) {
+		x[j] = radius[j] * cos(phi[j]);
+		y[j] = radius[j] * sin(phi[j]);
+	}
+
+	string filename = "rnseq of x, y(c=" + to_string(rn_for_phi.c) + ",p=" + to_string(rn_for_phi.p) \
 		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(seed) + ".dat";
 	fstream myfile(filename, ios::out | ios::trunc);
+
+	if (myfile.is_open()) {
+		cout << "Generate random number sequence of x, y:(c=" \
+			+ to_string(rn_for_phi.c) + ", p=" + to_string(rn_for_phi.p) + ")\n";
+		for (int j = 0; j < i; j++) {
+			myfile << x[j] <<"   " << y[j] << "\n";
+		}
+		if (myfile.good()) {
+			cout << "File is successfully written.\n";
+		}
+		else {
+			cout << "Writting is fail.\n";
+			myfile.clear();
+		}
+	}
+	else {
+		cout << "File is unable to open.\n";
+	}
+	myfile.close();
+
+	filename = "rnseq of phi(c=" + to_string(rn_for_phi.c) + ",p=" + to_string(rn_for_phi.p) \
+		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(seed) + ".dat";
+	myfile.open(filename, ios::out | ios::trunc);
 
 	if (myfile.is_open()) {
 		cout << "Generate random number sequence of phi:(c=" \
