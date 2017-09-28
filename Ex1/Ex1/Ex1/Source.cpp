@@ -45,13 +45,13 @@ int main(){
 	stringstream(str) >> seed;
 
 	//task1
-	task1(i, seed);
+	//task1(i, seed);
 
 	//task2
 	task2(i, seed);
 
 	//task3
-	task3(i, seed);
+	//task3(i, seed);
 	
 
 	system("pause");
@@ -172,8 +172,8 @@ void task2(int i, int seed) {
 	RN_Congru rn_for_phi{ c,p }, rn_for_radius{ c,p };
 	rn_for_phi.seq = new long long[i];
 	rn_for_radius.seq = new long long[i];
-	rn_for_phi.seq[0] = seed;
-	rn_for_radius.seq[0] = (seed + rand()) % p;
+	rn_for_phi.seq[0] = rand();
+	rn_for_radius.seq[0] = rand();
 
 	for (int j = 1; j < i; j++) {
 		rn_for_phi.seq[j] = rn_for_phi.Congru(&rn_for_phi.seq[j]);
@@ -196,7 +196,7 @@ void task2(int i, int seed) {
 	}
 
 	string filename = "rnseq of x, y(c=" + to_string(rn_for_phi.c) + ",p=" + to_string(rn_for_phi.p) \
-		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(seed) + ".dat";
+		+ ",number of numbers=" + to_string(i) + " seed_phi=" + to_string(rn_for_phi.seq[0]) + "seed_radius=" + to_string(rn_for_radius.seq[0]) + ".dat";
 	fstream myfile(filename, ios::out | ios::trunc);
 
 	if (myfile.is_open()) {
@@ -219,7 +219,7 @@ void task2(int i, int seed) {
 	myfile.close();
 
 	filename = "rnseq of phi(c=" + to_string(rn_for_phi.c) + ",p=" + to_string(rn_for_phi.p) \
-		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(seed) + ".dat";
+		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(rn_for_phi.seq[0]) + ".dat";
 	myfile.open(filename, ios::out | ios::trunc);
 
 	if (myfile.is_open()) {
@@ -242,7 +242,7 @@ void task2(int i, int seed) {
 	myfile.close();
 
 	filename = "rnseq of radius(c=" + to_string(rn_for_radius.c) + ",p=" + to_string(rn_for_radius.p) \
-		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(seed) + ".dat";
+		+ ",number of numbers=" + to_string(i) + " seed=" + to_string(rn_for_radius.seq[0]) + ".dat";
 	myfile.open(filename, ios::out | ios::trunc);
 
 	if (myfile.is_open()) {
