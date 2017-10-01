@@ -2,22 +2,40 @@
 #include<string>
 #include<sstream>
 #include<fstream>
+#include<iomanip>
 #define _USE_MATH_DEFINES // for C++  
 #include "math.h" 
 #include "drand48.h"
 #include "latticeview.h"
 #include <stdlib.h>
 #include <stdio.h> // for sprintf()
+#include <tuple>
 
-#define N 100 //lattice size
-#define ProbSetLength 10
+#define N 500 //lattice size
+#define ProbSetLength 100
 #define ImageWidth 700  //image width
 #define ImageHeight 700 //image height
 
 using namespace std;
 
+class Forest_fire {
+public:
+	double probability;
+	int shortest_time;
+	int life_time;
+	int whether_spanning;
+};
+
+class Statistic {
+public:
+	double probability;
+	double fraction_of_percolation;
+	double averg_shortest_time = 0;
+	double averg_life_time = 0;
+};
+
 void task1(); // plot a square lattice
-int task2(double); // double: probability of occupying a site, return: 0/1 for having a spanning cluster
+tuple<int, int, int> task2(double, fstream&); // double: probability of occupying a site, return: 0/1 for having a spanning cluster
 void task3(); 
 
 
@@ -26,24 +44,30 @@ int main() {
 	//task1
 	//task1();
 
-	////task2
-	double p[ProbSetLength];
-	int wheter_spanning[ProbSetLength];
-	for (int i = 0; i < ProbSetLength; i++) {
-		p[i] = drand48();
-		cout << "p[" << i << "]=" << p[i] << "\n";
-		wheter_spanning[i] = task2(p[i]);
-	}
+	//task2
+	//double p[ProbSetLength];
+	//Forest_fire fire[ProbSetLength];
 
-	for (int i = 0; i < ProbSetLength; i++) {
-		cout << "whether spanning[" << i << "]:" << wheter_spanning[i] << "\n";
+	////fstream myfile("Forest fire.txt", ios::out | ios::trunc);
+	//int K = rand();
+	//for (int i = 0; i < ProbSetLength; i++) {
+	//	for (int k = 0; k < K; k++) drand48();
+	//	p[i] = drand48();
+	//	fire[i].probability = p[i];
+	//	//myfile << "p[" << i << "]=" << p[i] << "\n";
+	//	tie(fire[i].whether_spanning, fire[i].shortest_time, fire[i].life_time) = task2(p[i], myfile);
+	//}
+
+	/*for (int i = 0; i < ProbSetLength; i++) {
+		myfile << "whether spanning[" << i << "]:" << wheter_spanning[i] << "\n";
 	}
 	
+	myfile.close();*/
 
-	////task3
-	//task3();
+	//task3
+	task3();
 
-	system("pause");
+	//system("pause");
 	return 0;
 }
 
@@ -61,7 +85,7 @@ void task1() {
 	Print_lattice(lat, N, N, ImageWidth, ImageHeight, filename);
 }
 
-int task2(double p) {
+tuple<int, int, int> task2(double p, fstream& myfile) {
 	int lat[N*N];
 	char filename[50];
 	//initialize lattice with occupied sites
@@ -90,8 +114,8 @@ int task2(double p) {
 				if (lat[(N - 1)*N + j] == 2) {
 					shortest_time = time; //record the time that fire reaches the other side
 					fire_arrived = true;
-					sprintf(filename, "lattice N=%d p=%f shortest_time=%d.ppm", N, p, shortest_time);
-					Print_lattice(lat, N, N, ImageWidth, ImageHeight, filename);
+					/*sprintf(filename, "lattice N=%d p=%f shortest_time=%d.ppm", N, p, shortest_time);
+					Print_lattice(lat, N, N, ImageWidth, ImageHeight, filename);*/
 				}
 					
 		fire_alive = false;
@@ -134,13 +158,54 @@ int task2(double p) {
 		}
 
 	}
-	cout << "shortest time=" << shortest_time << "\n";
-	cout << "life_time=" << life_time << "\n";
-	cout << endl;
+	/*myfile << "shortest time=" << shortest_time << "\n";
+	myfile << "life_time=" << life_time << "\n";
+	myfile << endl;*/
 	//sprintf(filename, "lattice N=%d p=%f.ppm", N, p[i]);
 	//Print_lattice(lat, N, N, ImageWidth, ImageHeight, filename);
-	if (fire_arrived) return 1;
-	else if (!fire_arrived) return 0;
-	else return -1;
+	if (fire_arrived) return {1, shortest_time, life_time };
+	else if (!fire_arrived) return { 0, shortest_time, life_time };
+	else return {-1, -2, -3};
 	
+}
+
+void task3() {
+	double p[ProbSetLength];
+	Statistic fire[ProbSetLength];
+	int shorest_time, life_time;
+	const int repeat_time = 1000;
+	int whether_spanning, spanning_counter = 0;
+
+	string filename = "Forest fire statistic N=" + to_string(N) + ".txt";
+	fstream myfile(filename, ios::out | ios::trunc);
+	for (int i = 0; i < ProbSetLength; i++) {
+		p[i] = i*(1.0 / ProbSetLength);
+		fire[i].probability = p[i];
+		for (int j = 0; j < repeat_time; j++) {
+			tie(whether_spanning, shorest_time, life_time) = task2(p[i], myfile);
+
+			if (whether_spanning != -1)
+				spanning_counter += whether_spanning;
+			else if (whether_spanning == -1)
+				cout << "task 2 has occured error.\n";
+			else
+				cout << "Unknown error occurs.\n";
+
+			fire[i].averg_shortest_time += double(shorest_time);
+			fire[i].averg_life_time += double(life_time);
+		}
+		fire[i].fraction_of_percolation = double(spanning_counter) / repeat_time;
+		fire[i].averg_shortest_time /= repeat_time;
+		fire[i].averg_life_time /= repeat_time;
+	}
+
+	myfile << fixed;
+	myfile << setprecision(15);
+	for (int i = 0; i < ProbSetLength; i++) {
+		myfile << fire[i].probability << "  " << fire[i].fraction_of_percolation << "  " << fire[i].averg_shortest_time << "  " << fire[i].averg_life_time << "\n";
+	}
+
+	myfile.close();
+
+
 }

@@ -1,0 +1,50 @@
+p[0]=0.845215
+shortest time=105
+life_time=113
+
+p[1]=0.278058
+shortest time=0
+life_time=8
+
+p[2]=0.598022
+shortest time=171
+life_time=309
+
+p[3]=0.706494
+shortest time=124
+life_time=143
+
+p[4]=0.594187
+shortest time=157
+life_time=220
+
+p[5]=0.48392
+shortest time=0
+life_time=41
+
+p[6]=0.249071
+shortest time=0
+life_time=6
+
+p[7]=0.487901
+shortest time=0
+life_time=14
+
+p[8]=0.452469
+shortest time=0
+life_time=21
+
+p[9]=0.839376
+shortest time=107
+life_time=117
+
+whether spanning[0]:1
+whether spanning[1]:0
+whether spanning[2]:1
+whether spanning[3]:1
+whether spanning[4]:1
+whether spanning[5]:0
+whether spanning[6]:0
+whether spanning[7]:0
+whether spanning[8]:0
+whether spanning[9]:1

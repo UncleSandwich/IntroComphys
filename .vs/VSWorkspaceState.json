@@ -1,12 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Ex0",
-    "\\Ex1",
     "\\Ex1\\Ex1",
     "\\Ex1\\Ex1\\Debug",
-    "\\Ex1\\Ex1\\Ex1"
+    "\\Ex1\\Ex1\\Ex1",
+    "\\Ex2",
+    "\\Ex2\\Ex2"
   ],
-  "SelectedNode": "\\Ex1\\Ex1\\Ex1\\Source.cpp",
+  "SelectedNode": "\\Ex2\\Ex2",
   "PreviewInSolutionExplorer": false
 }
