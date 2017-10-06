@@ -8,8 +8,8 @@
 
 using namespace std;
 
-#define PROBILITY 0.5
-#define L 100
+#define PROBILITY 1.0
+#define L 1000
 
 int main() {
 	int M[L*L]{ 0 };
@@ -112,25 +112,46 @@ int main() {
 	}
 	
 	int counter_occupied = 0;
+	int number_of_cluster = 0;
 	for (int i = 0; i < L*L; i++) {
 		//cout << i << " : " << N[i] << "   ";
 		counter_occupied += N[i] * i;
+		number_of_cluster += N[i];
 		//if (i % 10 == 0) cout << endl;
 	}
 
 	if (counter_occupied == occupied) cout << "Number of occupied sites match!\n";
 	else cout << "Not match!\n";
 
+	cout << "Number of clusters: " << number_of_cluster <<"\n";
+
 	double n[L*L]{ 0 };
-	for (int i = 0; i < L*L; i++) n[i] = N[i] / double(L*L);
+	for (int i = 0; i < L*L; i++) n[i] = N[i] / double(number_of_cluster);
 
 	//for (int i = 0; i < L*L; i++) {
 	//	cout << i << " : " << n[i] << "   ";
 	//	if (i % 10 == 0) cout << "\n";
 	//}
 
+	string filename = "Number of cluster L=" + to_string(L) + " p=" + to_string(PROBILITY) + ".txt";
+	fstream myfile(filename, ios::out | ios::trunc);
+	for (int i = 0; i < L*L; i++) {
+		if (N[i] == 0) continue;
+		myfile << i << "  " << N[i] << "\n";
+	}
+	myfile.close();
+
+	filename = "Relative number of cluster L=" + to_string(L) + " p=" + to_string(PROBILITY) + ".txt";
+	myfile.open(filename, ios::out | ios::trunc);
+	for (int i = 0; i < L*L; i++) {
+		if (n[i] == 0) continue;
+		myfile << i << "  " << n[i] << "\n";
+	}
+	myfile.close();
+
+
 	cout << endl;
-	system("pause");
+	//system("pause");
 	return 0;
 
 }

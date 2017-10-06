@@ -13,7 +13,7 @@ static unsigned long long seed = 1;
 double drand48(void)
 {
 	seed = (a * seed + c) & 0xFFFFFFFFFFFFLL;
-	unsigned int x = seed >> 16;
+	unsigned _int64 x = seed >> 16;
 	return  ((double)x / (double)m);
 
 }

@@ -1,4 +1,3 @@
 ﻿  Source.cpp
-c:\users\lihan\source\repos\introcomphys\ex3\ex3\drand48.h(16): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
   Ex3.vcxproj -> C:\Users\lihan\Source\Repos\IntroComphys\Ex3\Debug\Ex3.exe
   Ex3.vcxproj -> C:\Users\lihan\Source\Repos\IntroComphys\Ex3\Debug\Ex3.pdb (Partial PDB)
