@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define PROBILITY 1.0
+#define PROBILITY 0.59
 #define L 1000
 
 int main() {
