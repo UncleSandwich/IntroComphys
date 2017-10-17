@@ -1,2 +1,4 @@
-﻿  Ex4.vcxproj -> C:\Users\lihan\Source\Repos\IntroComphys\Ex4\Debug\Ex4.exe
-  Ex4.vcxproj -> C:\Users\lihan\Source\Repos\IntroComphys\Ex4\Debug\Ex4.pdb (Partial PDB)
+﻿  Source.cpp
+c:\users\lihan\source\repos\introcomphys\ex4\ex4\drand48.h(16): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+  Ex4.vcxproj -> C:\Users\lihan\source\repos\IntroComphys\Ex4\Debug\Ex4.exe
+  Ex4.vcxproj -> C:\Users\lihan\source\repos\IntroComphys\Ex4\Debug\Ex4.pdb (Partial PDB)
