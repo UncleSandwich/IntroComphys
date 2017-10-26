@@ -1,5 +1,6 @@
 ﻿  Source.cpp
 c:\users\lihan\source\repos\introcomphys\ex5\ex5\drand48.h(16): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
-c:\users\lihan\source\repos\introcomphys\ex5\ex5\source.cpp(51): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Ex5.vcxproj -> C:\Users\lihan\Source\Repos\IntroComphys\Ex5\Debug\Ex5.exe
-  Ex5.vcxproj -> C:\Users\lihan\Source\Repos\IntroComphys\Ex5\Debug\Ex5.pdb (Partial PDB)
+c:\users\lihan\source\repos\introcomphys\ex5\ex5\source.cpp(56): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\lihan\source\repos\introcomphys\ex5\ex5\source.cpp(125): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Ex5.vcxproj -> C:\Users\lihan\source\repos\IntroComphys\Ex5\Debug\Ex5.exe
+  Ex5.vcxproj -> C:\Users\lihan\source\repos\IntroComphys\Ex5\Debug\Ex5.pdb (Partial PDB)
