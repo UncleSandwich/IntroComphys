@@ -23,16 +23,21 @@ int main() {
 	float E{0}; //Energy of the whole lattice
 	int M{LATTICE_SIZE*LATTICE_SIZE}; //Magnetization of the whole lattice
 
-	for (T = 2.2; T < 2.35; T += 0.01) {
+	/*string filename = "L=" + to_string(LATTICE_SIZE)+".txt";
+	fstream myfile(filename, ios::out | ios::trunc);*/
+	
+	for (T = 2; T < 2.01; T += 0.01) {
+		string filename = "L=" + to_string(LATTICE_SIZE) + " T=" + to_string(T) + ".txt";
+		fstream myfile(filename, ios::out | ios::trunc);
 		double E_over_M{ 0 };
 		double E_mean = 0;
 		double M_mean = 0;
 
-		const int sweeps = 100;
-		long MC_step = sweeps*LATTICE_SIZE*LATTICE_SIZE; //steps of Monte Carlo sampling, 100 sweeps
+		const int sweeps = 100; //steps to leave out correlation
+		long MC_step = sweeps*LATTICE_SIZE*LATTICE_SIZE*0.2; //steps of Monte Carlo sampling
 		srand(time(NULL));
 		srand48(time(NULL));
-		for (long n = 1; n < MC_step + 1; n++) {
+		for (long n = 1; n < (MC_step + 1); n++) {
 			//the coordinate of the cell to be fliped
 			int cell_flip_i = rand() % LATTICE_SIZE;
 			int cell_flip_j = rand() % LATTICE_SIZE;
@@ -76,7 +81,7 @@ int main() {
 
 
 
-			if (n % (LATTICE_SIZE*LATTICE_SIZE) == 0) {
+			if (n % sweeps == 0) {
 				//cout << "n: " << n << "\n";
 				//calculate the total energy
 				E = 0;
@@ -115,6 +120,8 @@ int main() {
 
 				E_over_M += E / M;
 
+				myfile << n << " " << M << "\n";
+
 				/*for (int i = 0; i < LATTICE_SIZE; i++)
 				for (int j = 0; j < LATTICE_SIZE; j++) {
 				if ((i*LATTICE_SIZE + j) % LATTICE_SIZE == 0) cout << "\n";
@@ -123,12 +130,15 @@ int main() {
 				cout << endl;*/
 			}
 		}
-		E_mean /= sweeps;
-		M_mean /= sweeps;
-		E_over_M /= sweeps;
-		cout << "E_mean: " << E_mean << "  M_mean: " << M_mean << "  E/M: " << E_over_M << "  T: " << T << "\n";
+		E_mean /= MC_step / sweeps;
+		M_mean /= MC_step / sweeps;
+		E_over_M /= MC_step / sweeps;
+		//cout << "E_mean: " << E_mean << "  M_mean: " << M_mean << "  E/M: " << E_over_M << "  T: " << T << "\n";
+		//myfile << E_mean << "  " << M_mean << "  " << E_over_M << "  " << T << "\n";
+		myfile.close();
 	}
+	
 
-	system("pause");
+	//system("pause");
 	return 0;
 }

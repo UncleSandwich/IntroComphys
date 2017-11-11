@@ -77,7 +77,9 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <StackCommitSize>8000000000</StackCommitSize>
+      <StackCommitSize>
+      </StackCommitSize>
+      <StackReserveSize>8000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

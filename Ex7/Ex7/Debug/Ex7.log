@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\users\lihan\source\repos\introcomphys\ex7\ex7\drand48.h(16): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\lihan\source\repos\introcomphys\ex7\ex7\source.cpp(16): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
+  Ex7.vcxproj -> C:\Users\lihan\source\repos\IntroComphys\Ex7\Debug\Ex7.exe
