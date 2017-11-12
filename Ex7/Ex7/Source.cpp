@@ -60,7 +60,7 @@ int main() {
 				lattice[x*L + y] = size_of_cluster;
 				has_reach_cluster = true;
 				if ((x + 3) > generation_height) {
-					generation_height = y + 2;
+					generation_height = x + 2;
 					max_height = generation_height * 2;
 				}
 			}
