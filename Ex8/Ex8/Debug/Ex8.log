@@ -1,7 +1,9 @@
 ﻿  Source.cpp
-c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(21): warning C4101: 'expected_R_square_SRW': unreferenced local variable
-c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(36): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
-c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(75): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(91): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
-c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(153): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(28): warning C4101: 'expected_R_square_SRW': unreferenced local variable
+c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(27): warning C4101: 'delta_over_R2_SRW': unreferenced local variable
+c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(29): warning C4101: 'delta_over_R2_CP': unreferenced local variable
+c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(78): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
+c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(117): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(137): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
+c:\users\lihan\source\repos\introcomphys\ex8\ex8\source.cpp(231): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   Ex8.vcxproj -> C:\Users\lihan\source\repos\IntroComphys\Ex8\Debug\Ex8.exe

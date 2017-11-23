@@ -84,7 +84,7 @@ int main() {
 	} while (n < N);
 
 	int image_width = 1000, image_height = 1000;
-	Print_lattice(lattice, L, L, image_width, image_height, "output5.ppm");
+	Print_lattice(lattice, L, L, image_width, image_height, "output6.ppm");
 
 	//system("pause");
 	return 0;
