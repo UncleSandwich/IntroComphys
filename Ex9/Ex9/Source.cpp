@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define use_secant true
+#define use_secant false
 #define x0 1
 #define y0 1
 
@@ -12,7 +12,7 @@ double fx(double, double);
 double fy(double, double);
 
 int main() {
-	double x = 1.35, y = 1.35;  //(|x_init-x| and |y_init-y| should not exceed Newton: 0.7, Secant: 0.35 )
+	double x = 1.1, y = 1.1;  //(|x_init-x| and |y_init-y| should not exceed Newton: 0.7, Secant: 0.35 )
 	
 	if (!use_secant) {
 		string filename = "Newton11.txt";
